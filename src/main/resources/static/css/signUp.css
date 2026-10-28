@@ -1,0 +1,72 @@
+html {
+    background-color: #283618;
+}
+
+#container {
+    margin: auto;
+    border: 1px solid #BC6C25;
+    border-radius: 5px;
+    width: 40%;
+    padding-block: 2rem;
+}
+
+fieldset {
+    margin: auto auto 1rem auto;
+    width: 90%;
+    border: 1px solid #BC6C25;
+    border-radius: 5px;
+}
+
+fieldset input {
+    font-size: 125%;
+    color: #FEFAE0;
+    background: none;
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 2rem;
+}
+
+fieldset legend {
+    color: #DDA15E;
+}
+
+#signUpForm {
+    text-align: center;
+}
+
+#main-title {
+    color: #FEFAE0;
+}
+
+#signUpButton {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #606C38;
+    color: #DDA15E;
+    font-weight: bold;
+    font-size: 125%;
+    margin-top: 1rem;
+    width: 90%;
+    height: 2rem;
+    transform: scale(1);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+#signUpButton:hover {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: #BC6C25;
+    color: #FEFAE0;
+}
+
+#login-link-text {
+    color: #FEFAE0;
+}
+
+#login-link-text a {
+    color: #DDA15E;
+}
