@@ -1,5 +1,7 @@
 package com.notes.notesapp.config;
 
+import com.notes.notesapp.services.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,13 +10,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 public class SecurityConfig {
 
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+            HttpSecurity http,
+            SecurityContextRepository securityContextRepository,
+            RememberMeServices rememberMeServices) throws Exception {
 
         http
                 .authorizeHttpRequests(auth -> auth
@@ -22,7 +36,7 @@ public class SecurityConfig {
                                 "/login",
                                 "/signUp",
                                 "/users/register",
-                                "/users/login/",
+                                "/users/login",
                                 "/csrf",
                                 "/css/**",
                                 "/js/**",
@@ -47,6 +61,14 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
+                )
+
+                .securityContext(context ->
+                    context.securityContextRepository(securityContextRepository)
+                )
+
+                .rememberMe(remember ->
+                    remember.rememberMeServices(rememberMeServices)
                 );
 
         return http.build();
@@ -61,5 +83,15 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
+    }
+
+    @Bean
+    public RememberMeServices rememberMeServices(@Value("${security.remember-me-key}") String key) {
+        return new TokenBasedRememberMeServices(key, customUserDetailsService);
     }
 }
