@@ -5,9 +5,9 @@ import com.notes.notesapp.models.ReceiveUserModel;
 import com.notes.notesapp.repositories.UserRepository;
 import com.notes.notesapp.services.CustomUserDetailsService;
 import com.notes.notesapp.services.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -17,10 +17,10 @@ public class UserController {
     private final UserService userService;
 
     public UserController(
-                          UserRepository userRepository,
-                          UserService userService,
-                          CustomUserDetailsService customUserDetailsService
-                          )
+            UserRepository userRepository,
+            UserService userService,
+            CustomUserDetailsService customUserDetailsService
+    )
     {
         this.customUserDetailsService = customUserDetailsService;
         this.userRepository = userRepository;
@@ -32,8 +32,8 @@ public class UserController {
         userService.registerUser(user);
     }
 
-    @PostMapping("/users/login/")
-    public boolean login(@RequestBody LoginUserModel user) {
-        return userService.login(user);
+    @PostMapping("/users/login")
+    public boolean login(@RequestBody LoginUserModel user, @RequestParam("remember-me") boolean rememberMe, HttpServletRequest request, HttpServletResponse response) {
+        return userService.login(user, request, response, rememberMe);
     }
 }
