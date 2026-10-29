@@ -1,6 +1,7 @@
 const loginForm = document.querySelector("#login-form");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
+const rememberMe = document.querySelector("#remember-me");
 
 async function login(event) {
     event.preventDefault();
@@ -8,7 +9,7 @@ async function login(event) {
     const csrfResponse = await fetch("/csrf");
     const csrf = await csrfResponse.json();
 
-    const response = await fetch(`/users/login/`, {
+    const response = await fetch(`/users/login?remember-me=${rememberMe.checked}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
