@@ -1,0 +1,80 @@
+html {
+    background-color: #FEFAE0;
+    color: #283618;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+#main-title {
+    grid-column: 2;
+}
+
+#about-me {
+    grid-column: 1;
+    margin-right: auto;
+    background: none;
+    color: #283618;
+    outline: none;
+    border: none;
+}
+
+#logout-button, #logout-svg {
+    grid-column: 3;
+    margin-left: auto;
+    background: none;
+    color: red;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#notes {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #283618;
+    border-radius: 5px;
+    padding: 12px;
+}
+
+#add-notes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #606C38;
+}
+
+#create-note-button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: #606C38;
+}
+
+#all-notes {
+    border: 1px solid #DDA15E;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notes-div, .notes-div a {
+    text-decoration: none;
+    color: #BC6C25;
+}
+
+.notes-div a {
+    transition: color 0.3s ease;
+}
+
+.notes-div a:hover {
+    color: #283618;
+}
