@@ -21,33 +21,17 @@ public class UserRepository {
         jdbcTemplate.update(SQL, user.email, user.display_name, user.password);
     }
 
-    public String getPassword(BigDecimal id) {
+    public String getPassword(Long id) {
         String SQL = "SELECT password FROM users WHERE id = ?";
         String password = jdbcTemplate.queryForObject(SQL, String.class, id);
 
         return password;
     }
 
-    public BigDecimal getIdByEmail(String email) {
+    public Long getIdByEmail(String email) {
         String SQL = "SELECT id FROM users WHERE email = ?";
-        BigDecimal id = jdbcTemplate.queryForObject(SQL, BigDecimal.class, email);
+        Long id = jdbcTemplate.queryForObject(SQL, Long.class, email);
 
         return id;
     }
-
-    public boolean checkIfEmailExists(String email) {
-        String SQL = "SELECT EXISTS (SELECT email FROM users WHERE email = ?)";
-
-        boolean check = jdbcTemplate.queryForObject(SQL, Boolean.class, email);
-        return check;
-    }
-
-    public LoginUserModel getLoginInfo(BigDecimal id) {
-        String SQL = "SELECT email, password FROM users WHERE id = ?";
-
-        LoginUserModel userLoginInfo = jdbcTemplate.queryForObject(SQL, LoginUserModel.class, id);
-
-        return userLoginInfo;
-    }
-
 }

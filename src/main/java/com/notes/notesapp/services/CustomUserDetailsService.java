@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         try {
-            BigDecimal id = userRepository.getIdByEmail(email);
+            Long id = userRepository.getIdByEmail(email);
             String hashedPassword = userRepository.getPassword(id);
 
             return org.springframework.security.core.userdetails.User
