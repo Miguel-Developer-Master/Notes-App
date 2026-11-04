@@ -1,5 +1,6 @@
 package com.notes.notesapp.repositories;
 
+import com.notes.notesapp.models.ReceiveNoteModel;
 import com.notes.notesapp.models.NoteModel;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,11 @@ public class NoteRepository {
         }, user_id);
 
         return notes;
+    }
+
+    public void createNote(ReceiveNoteModel note) {
+        String SQL = "INSERT INTO notes (user_id, title, content) VALUES (?, ?, ?)";
+
+        jdbcTemplate.update(SQL, note.user_id, note.title, note.content);
     }
 }
