@@ -1,0 +1,60 @@
+html {
+    background-color: #DDA15E;
+    color: #FEFAE0;
+}
+
+header {
+    text-align: center;
+}
+
+#create-note-form {
+    border: 1px solid #FEFAE0;
+    border-radius: 15px;
+    padding: 16px;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fieldsets {
+    border: none;
+}
+
+.inputs {
+    min-height: 100%;
+    width: 100%;
+    background-color: #BC6C25;
+    border: none;
+    border-radius: 5px;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.inputs input {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+#content {
+    resize: none;
+    box-sizing: border-box;
+}
+
+#submit-button {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: #FEFAE0;
+    background-color: #283618;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+#submit-button:hover {
+    color: #283618;
+    background-color: #FEFAE0;
+}
