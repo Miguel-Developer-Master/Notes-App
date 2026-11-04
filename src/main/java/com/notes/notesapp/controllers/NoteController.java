@@ -1,10 +1,9 @@
 package com.notes.notesapp.controllers;
 
 import com.notes.notesapp.models.NoteModel;
+import com.notes.notesapp.models.ReceiveNoteModel;
 import com.notes.notesapp.services.NoteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,10 @@ public class NoteController {
     @GetMapping("/notes/get-all-by-user-id/{user_id}")
     public List<NoteModel> getNotes(@PathVariable Long user_id) {
         return noteService.getNotesByUserId(user_id);
+    }
+
+    @PostMapping("/notes/create")
+    public void createNote(@RequestBody ReceiveNoteModel note) {
+        noteService.createNote(note);
     }
 }
