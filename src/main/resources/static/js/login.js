@@ -1,3 +1,5 @@
+import {changePage} from "./utils/changePage.js";
+
 const loginForm = document.querySelector("#login-form");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
@@ -23,7 +25,7 @@ async function login(event) {
 
     const authenticated = await response.text();
 
-    console.log(authenticated);
+    changePage("");
 }
 
 loginForm.addEventListener("submit", login);
