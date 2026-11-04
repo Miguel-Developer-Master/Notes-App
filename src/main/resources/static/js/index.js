@@ -1,0 +1,84 @@
+import {changePage} from "./utils/changePage.js";
+
+const logoutButton = document.getElementById("logout-button");
+const aboutMeButton = document.getElementById("about-me");
+const footer = document.querySelector("footer");
+
+aboutMeButton.addEventListener("click", () => {
+    footer.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+    })
+});
+
+
+async function logout() {
+
+    const csrfResponse = await fetch("/csrf");
+    const csrf = await csrfResponse.json();
+
+    await fetch("/logout", {
+        method: "POST",
+        headers: {
+            [csrf.headerName]: csrf.token,
+        }
+    })
+
+    changePage("login");
+}
+
+logoutButton.addEventListener("click", logout);
+
+// adding making notes visible
+
+const notesSection = document.getElementById("notes");
+async function showNotes() {
+
+    const csrfResponse = await fetch("/csrf");
+    const csrf = await csrfResponse.json();
+
+    const emailResponse = await fetch("/users/get-current-authenticated-user-email");
+    const email = await emailResponse.text();
+
+    const idResponse = await fetch(`/users/get-user-id-by-email/${email}`);
+    const id = await idResponse.text();
+
+    const notesResponse = await fetch(`/notes/get-all-by-user-id/${id}`);
+    const notes = await notesResponse.json();
+
+    for (const note of notes) {
+
+        const noteDiv = document.createElement("div");
+        noteDiv.classList.add("notes-div");
+
+        const h3 = document.createElement("h3");
+
+        const link = document.createElement("a");
+        link.href = `/notes/view/${note.id}`;
+        link.textContent = note.title;
+
+        const firstFifteenLetters = document.createElement("p");
+        let textToPut = (note.content).substring(0, 15);
+        if (firstFifteenLetters.length > textToPut.length) {
+            textToPut += "...";
+        }
+        firstFifteenLetters.textContent = textToPut;
+
+        const updatedAt = document.createElement("p");
+        updatedAt.textContent = `Updated at: ${note.updated_at.replaceAll('-', '/')}`;
+
+        noteDiv.append(h3);
+        h3.append(link);
+        noteDiv.append(firstFifteenLetters);
+        noteDiv.append(updatedAt);
+
+        notesSection.append(noteDiv);
+    }
+}
+
+await showNotes();
+
+/*
+P.S:
+As I did not create a "create notes" page, I don't have how to test, and there are probably some bugs.
+ */
