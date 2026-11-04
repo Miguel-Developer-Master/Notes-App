@@ -1,5 +1,9 @@
 import {changePage} from "./utils/changePage.js";
 
+const createNoteButton = document.getElementById("create-note-button");
+
+createNoteButton.addEventListener("click", () => changePage("notes/create"));
+
 const logoutButton = document.getElementById("logout-button");
 const aboutMeButton = document.getElementById("about-me");
 const footer = document.querySelector("footer");
