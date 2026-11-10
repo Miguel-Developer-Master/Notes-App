@@ -35,11 +35,9 @@ logoutButton.addEventListener("click", logout);
 
 // adding making notes visible
 
-const notesSection = document.getElementById("notes");
+const notesSection = document.getElementById("all-notes");
 async function showNotes() {
 
-    const csrfResponse = await fetch("/csrf");
-    const csrf = await csrfResponse.json();
 
     const emailResponse = await fetch("/users/get-current-authenticated-user-email");
     const email = await emailResponse.text();
@@ -62,8 +60,9 @@ async function showNotes() {
         link.textContent = note.title;
 
         const firstFifteenLetters = document.createElement("p");
-        let textToPut = (note.content).substring(0, 15);
-        if (firstFifteenLetters.length > textToPut.length) {
+        const content = note.content ?? "";
+        let textToPut = content.substring(0, 15);
+        if (content.length > textToPut.length) {
             textToPut += "...";
         }
         firstFifteenLetters.textContent = textToPut;
