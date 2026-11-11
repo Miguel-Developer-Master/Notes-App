@@ -1,6 +1,6 @@
 package com.notes.notesapp.repositories;
 
-import com.notes.notesapp.models.ReceiveNoteModel;
+import com.notes.notesapp.models.InternalReceiveNoteModel;
 import com.notes.notesapp.models.NoteModel;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,6 +26,7 @@ public class NoteRepository {
             note.id = result.getLong("id");
             note.user_id = result.getLong("user_id");
             note.title = result.getString("title");
+            note.content = result.getString("content");
             note.created_at = result.getObject("created_at", LocalDate.class);
             note.updated_at = result.getObject("updated_at", LocalDate.class);
 
@@ -35,7 +36,7 @@ public class NoteRepository {
         return notes;
     }
 
-    public void createNote(ReceiveNoteModel note) {
+    public void createNote(InternalReceiveNoteModel note) {
         String SQL = "INSERT INTO notes (user_id, title, content) VALUES (?, ?, ?)";
 
         jdbcTemplate.update(SQL, note.user_id, note.title, note.content);

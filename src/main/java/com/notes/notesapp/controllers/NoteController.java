@@ -1,8 +1,10 @@
 package com.notes.notesapp.controllers;
 
+import com.notes.notesapp.models.InternalReceiveNoteModel;
 import com.notes.notesapp.models.NoteModel;
 import com.notes.notesapp.models.ReceiveNoteModel;
 import com.notes.notesapp.services.NoteService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,17 +13,24 @@ import java.util.List;
 public class NoteController {
 
     private final NoteService noteService;
-    public NoteController(NoteService noteService) {
+    private final UserController userController;
+    public NoteController(NoteService noteService, UserController userController) {
         this.noteService = noteService;
+        this.userController = userController;
     }
 
-    @GetMapping("/notes/get-all-by-user-id/{user_id}")
-    public List<NoteModel> getNotes(@PathVariable Long user_id) {
-        return noteService.getNotesByUserId(user_id);
+    @GetMapping("/notes/get-all-by-current-user")
+    public List<NoteModel> getNotes(Authentication authentication) {
+        String email = authentication.getName();
+        Long id = userController.getUserId(email);
+        return noteService.getNotesByUserId(id);
     }
 
     @PostMapping("/notes/create")
-    public void createNote(@RequestBody ReceiveNoteModel note) {
+    public void createNote(@RequestBody ReceiveNoteModel receivingNote, Authentication authentication) {
+        String email = authentication.getName();
+        Long id = userController.getUserId(email);
+        InternalReceiveNoteModel note = new InternalReceiveNoteModel(id, receivingNote);
         noteService.createNote(note);
     }
 }
