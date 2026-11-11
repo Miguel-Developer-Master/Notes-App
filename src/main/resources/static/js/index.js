@@ -38,14 +38,7 @@ logoutButton.addEventListener("click", logout);
 const notesSection = document.getElementById("all-notes");
 async function showNotes() {
 
-
-    const emailResponse = await fetch("/users/get-current-authenticated-user-email");
-    const email = await emailResponse.text();
-
-    const idResponse = await fetch(`/users/get-user-id-by-email/${email}`);
-    const id = await idResponse.text();
-
-    const notesResponse = await fetch(`/notes/get-all-by-user-id/${id}`);
+    const notesResponse = await fetch(`/notes/get-all-by-current-user`);
     const notes = await notesResponse.json();
 
     for (const note of notes) {
