@@ -50,4 +50,12 @@ public class NoteController {
 
         noteService.updateNoteById(note, user_id);
     }
+
+    @DeleteMapping("/notes/delete-note-by-id/{id}")
+    public void deleteNoteById(Authentication authentication, @PathVariable Long id) {
+        String email = authentication.getName();
+        Long user_id = userController.getUserId(email);
+
+        noteService.deleteNoteById(user_id, id);
+    }
 }

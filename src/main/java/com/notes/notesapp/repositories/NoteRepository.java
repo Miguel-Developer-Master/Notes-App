@@ -67,4 +67,9 @@ public class NoteRepository {
 
         jdbcTemplate.update(SQL, note.title, note.content, note.updated_at, note.id, user_id);
     }
+
+    public void deleteNoteById(Long user_id, Long note_id) throws Exception {
+        String SQL = "DELETE FROM NOTES WHERE id = ? AND user_id = ?";
+        jdbcTemplate.update(SQL, note_id, user_id);
+    }
 }

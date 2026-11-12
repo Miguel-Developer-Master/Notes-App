@@ -48,4 +48,12 @@ public class NoteService {
             e.printStackTrace();
         }
     }
+
+    public void deleteNoteById(Long id, Long user_id) {
+        try {
+            noteRepository.deleteNoteById(id, user_id);
+        } catch (Exception e) {
+            throw new RuntimeException("Or the task do not exists, or the user doesn't have permission to delete the note");
+        }
+    }
 }
