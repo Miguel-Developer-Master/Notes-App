@@ -2,6 +2,8 @@ package com.notes.notesapp.services;
 
 import com.notes.notesapp.models.InternalReceiveNoteModel;
 import com.notes.notesapp.models.NoteModel;
+import com.notes.notesapp.models.ReceiveNoteModel;
+import com.notes.notesapp.models.ReceiveNotePutMethodModel;
 import com.notes.notesapp.repositories.NoteRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,28 @@ public class NoteService {
 
     public void createNote(InternalReceiveNoteModel note) {
         noteRepository.createNote(note);
+    }
+
+    public ReceiveNoteModel getNoteById(Long user_id, long id) {
+
+        NoteModel allNote = noteRepository.getNoteById(id);
+        boolean run = user_id.equals(allNote.user_id);
+
+        if (!run) {
+            throw new RuntimeException("User does not have authorization to get the note");
+        } else {
+            ReceiveNoteModel receiveNoteModel = new ReceiveNoteModel();
+            receiveNoteModel.setNoteProperties(allNote);
+            return receiveNoteModel;
+        }
+    }
+
+    public void updateNoteById(ReceiveNotePutMethodModel note, Long real_user_id) {
+
+        try {
+            noteRepository.updateNoteById(note, real_user_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
