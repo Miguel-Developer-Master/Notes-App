@@ -90,7 +90,7 @@ async function showNotes() {
             "                            </svg>";
 
         contentDiv.append(h3);
-        contentDiv.append(link);
+        h3.append(link);
         contentDiv.append(firstFifteenLetters);
         contentDiv.append(updatedAt);
         actionDiv.append(deleteButton);

@@ -4,6 +4,8 @@ const username = document.getElementById("username");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const form = document.getElementById("signUpForm");
+const passwordFieldset = document.getElementById("before-email-fieldset");
+const appendingDiv = document.getElementById("container");
 
 async function signUp(event) {
     event.preventDefault();
@@ -24,8 +26,19 @@ async function signUp(event) {
             password: password.value
         })
     });
+    const data = await response.json();
 
-    changePage("login");
+    if (!data) {
+
+        const errorMessage = document.createElement("p");
+        errorMessage.textContent = "Email already used by an account!";
+        errorMessage.style.color = "red";
+
+        appendingDiv.insertBefore(errorMessage, passwordFieldset);
+
+    } else {
+        changePage("login");
+    }
 }
 
 form.addEventListener("submit",   signUp);

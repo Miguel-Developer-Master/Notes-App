@@ -4,6 +4,7 @@ const loginForm = document.querySelector("#login-form");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const rememberMe = document.querySelector("#remember-me");
+const errorDiv = document.querySelector("#some-content-div");
 
 async function login(event) {
     event.preventDefault();
@@ -23,9 +24,17 @@ async function login(event) {
         })
     });
 
-    const authenticated = await response.text();
+    const authenticated = await response.json();
 
-    changePage("");
+    if (!authenticated) {
+
+        const errorParagraph = document.createElement("p");
+        errorParagraph.textContent = "Email or password are incorrect";
+        errorParagraph.style.color = "red";
+        errorDiv.append(errorParagraph);
+    } else {
+        changePage("");
+    }
 }
 
 loginForm.addEventListener("submit", login);
