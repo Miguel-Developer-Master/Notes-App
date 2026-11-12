@@ -15,4 +15,9 @@ public class PageController {
     public String createNote() {
         return "createNote";
     }
+
+    @GetMapping("/notes/view")
+    public String viewNote() {
+        return "viewEditNote";
+    }
 }
