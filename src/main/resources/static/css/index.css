@@ -71,10 +71,38 @@ header {
     color: #BC6C25;
 }
 
+.notes-div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.action-div {
+    display: flex;
+    align-items: center;
+}
+
+
+
 .notes-div a {
     transition: color 0.3s ease;
 }
 
 .notes-div a:hover {
+    color: #283618;
+}
+
+.delete-note-button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-note-svg {
+    color: #BC6C25;
+    transition: 0.3s ease;
+}
+
+.delete-note-svg:hover {
     color: #283618;
 }
