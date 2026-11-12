@@ -1,0 +1,61 @@
+html {
+    background-color: #283618;
+    color: #FEFAE0;
+}
+
+#note-section {
+    display: flex;
+}
+
+#note-title {
+    font-size: 2em;
+    font-weight: bold;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+#note-content {
+    outline: none;
+    text-decoration: none;
+    background: none;
+    margin: auto;
+    width: 100%;
+    border: 1px solid #606C38;
+    border-radius: 5px;
+    padding: 10px;
+    color: #FEFAE0;
+    font-size: 120%;
+    font-weight: bold;
+    resize: none;
+}
+
+#action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 16px;
+}
+
+.buttons {
+    font-weight: bold;
+    background-color: #DDA15E;
+    color: #283618;
+    width: 40%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.buttons:hover {
+    background-color: #606C38;
+    color: #FEFAE0;
+}
