@@ -3,6 +3,7 @@ package com.notes.notesapp.controllers;
 import com.notes.notesapp.models.InternalReceiveNoteModel;
 import com.notes.notesapp.models.NoteModel;
 import com.notes.notesapp.models.ReceiveNoteModel;
+import com.notes.notesapp.models.ReceiveNotePutMethodModel;
 import com.notes.notesapp.services.NoteService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,21 @@ public class NoteController {
         Long id = userController.getUserId(email);
         InternalReceiveNoteModel note = new InternalReceiveNoteModel(id, receivingNote);
         noteService.createNote(note);
+    }
+
+    @GetMapping("/notes/get-note-by-id/{id}")
+    public ReceiveNoteModel getNoteById(Authentication authentication, @PathVariable Long id) {
+        String email = authentication.getName();
+        Long user_id = userController.getUserId(email);
+
+        return noteService.getNoteById(user_id, id);
+    }
+
+    @PatchMapping("/notes/update-note-by-id")
+    public void updateNoteById(@RequestBody ReceiveNotePutMethodModel note, Authentication authentication) {
+        String email = authentication.getName();
+        Long user_id = userController.getUserId(email);
+
+        noteService.updateNoteById(note, user_id);
     }
 }
