@@ -49,7 +49,7 @@ async function showNotes() {
         const h3 = document.createElement("h3");
 
         const link = document.createElement("a");
-        link.href = `/notes/view/${note.id}`;
+        link.href = `/notes/view?id=${note.id}`;
         link.textContent = note.title;
 
         const firstFifteenLetters = document.createElement("p");
