@@ -16,9 +16,14 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void registerUser(ReceiveUserModel user) {
-        String SQL = "INSERT INTO users (email,display_name,password) VALUES (?,?,?)";
-        jdbcTemplate.update(SQL, user.email, user.display_name, user.password);
+    public boolean registerUser(ReceiveUserModel user) {
+        try {
+            String SQL = "INSERT INTO users (email,display_name,password) VALUES (?,?,?)";
+            jdbcTemplate.update(SQL, user.email, user.display_name, user.password);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String getPassword(Long id) {

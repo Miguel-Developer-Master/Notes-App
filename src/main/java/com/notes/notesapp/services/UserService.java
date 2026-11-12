@@ -40,11 +40,11 @@ public class UserService {
         this.rememberMeServices = rememberMeServices;
     }
 
-    public void registerUser(ReceiveUserModel user) {
+    public boolean registerUser(ReceiveUserModel user) {
         String hashedPassword = passwordEncoder.encode(user.password);
         user.password = hashedPassword;
 
-        userRepository.registerUser(user);
+        return userRepository.registerUser(user);
     }
 
     public boolean login(LoginUserModel user, HttpServletRequest request, HttpServletResponse response, boolean rememberMe) {
